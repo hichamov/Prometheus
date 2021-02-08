@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment          
+metadata: 
+  name: mycustomapp
+  labels: 
+    k8s-app: mycustomapp
+    type: frontend
+spec:
+  template:
+    metadata:
+     name: mycustomapp
+     labels:
+        k8s-app: mycustomapp
+        type: frontend
+    spec:
+     containers:
+      - name: mycustomapp
+        image: hicham7farhi/hello-world:0.0.1
+  replicas: 3
+  selector:
+    matchLabels:
+      type: frontend

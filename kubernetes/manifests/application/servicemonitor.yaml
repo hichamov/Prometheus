@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mycustomapp
+  labels:
+    k8s-app: mycustomapp
+spec:
+  selector:
+    matchLabels:
+      type: frontend
+  endpoints:
+  - port: metric
+    scheme: http
+  jobLabel: mycustomapp
+  namespaceSelector:
+    matchNames:
+    - monitoring

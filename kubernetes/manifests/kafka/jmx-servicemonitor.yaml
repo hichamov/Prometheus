@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jmx-exporter
+  labels:
+    k8s-app: kafka-jmx
+spec:
+  selector:
+    matchLabels:
+        type: kafka-jmx
+  endpoints:
+  - port: http
+    scheme: http
+    relabelings:
+      - sourceLabels: [__meta_kubernetes_pod_label_strimzi_io_cluster]
+        targetLabel: strimzi_io_cluster
+      - sourceLabels: [__meta_kubernetes_pod_label_statefulset_kubernetes_io_pod_name]
+        targetLabel: statefulset_kubernetes_io_pod_name
+      - sourceLabels: [__meta_kubernetes_pod_name]
+        targetLabel: kubernetes_pod_name
+      - sourceLabels: [__meta_kubernetes_pod_label_strimzi_io_name]
+        targetLabel: strimzi_io_name
+  namespaceSelector:
+    matchNames:
+    - onl

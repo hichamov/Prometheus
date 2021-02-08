@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: zookeeper-jmx
+  labels:
+    k8s-app: zookeeper-jmx
+spec:
+  selector:
+    matchLabels:
+        type: zookeeper
+  endpoints:
+  - port: http
+    scheme: http
+    relabelings:
+      - sourceLabels: [__meta_kubernetes_pod_label_strimzi_io_cluster]
+        targetLabel: strimzi_io_cluster
+      - sourceLabels: [__meta_kubernetes_pod_label_statefulset_kubernetes_io_pod_name]
+        targetLabel: statefulset_kubernetes_io_pod_name
+      - sourceLabels: [__meta_kubernetes_pod_label_strimzi_io_kind]
+        targetLabel: strimzi_io_kind
+      - sourceLabels: [__meta_kubernetes_pod_name]
+        targetLabel: kubernetes_pod_name
+      - sourceLabels: [__meta_kubernetes_pod_label_strimzi_io_name]
+        targetLabel: strimzi_io_name
+  namespaceSelector:
+    matchNames:
+    - onl
