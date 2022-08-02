@@ -1,0 +1,7 @@
+---
+- labels:
+    job: linux
+  targets:
+{% for line in groups['lnodes'] %}
+  - {{ line }}:9100
+{% endfor %}

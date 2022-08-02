@@ -1,0 +1,32 @@
+---
+#- hosts: prometheus
+#  gather_facts: True
+#  user: ubuntu
+#  become: yes
+#  vars_files: ./roles/prometheus/vars/main.yml
+#  roles:
+#    - { role: prometheus }
+#
+#- hosts: grafana
+#  gather_facts: True
+#  user: ubuntu
+#  become: yes
+#  vars_files: ./roles/grafana/vars/main.yml
+#  roles:
+#    - { role: grafana }
+#
+#- hosts: lnodes
+#  gather_facts: True
+#  user: ubuntu
+#  become: yes
+#  vars_files: ./roles/node-exporter/vars/main.yml
+#  roles:
+#    - { role: node-exporter }
+
+- hosts: prometheus
+  gather_facts: True
+  user: ubuntu
+  become: yes
+  vars_files: ./roles/add-nodes/vars/main.yml
+  roles:
+    - { role: add-nodes }

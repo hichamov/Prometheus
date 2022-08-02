@@ -1,0 +1,2 @@
+prometheus_data_dir: "/var/lib/prometheus"
+local_download: True

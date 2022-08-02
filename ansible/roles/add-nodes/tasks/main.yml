@@ -1,0 +1,28 @@
+---
+- name: Create hosts inventory file
+  ansible.builtin.template:
+    src: templates/linux.yml.j2
+    dest: /etc/prometheus/files_sd/linux.yml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Add linux machines to prometheus configuration
+  ansible.builtin.blockinfile:
+    path: /etc/prometheus/prometheus.yml
+    insertafter: ^scrape_configs 
+    block: |2
+        - job_name: 'Linux machines'
+          file_sd_configs:
+          - files:
+            - 'files_sd/linux.yml'
+
+- name: Check if configuration is valid
+  ansible.builtin.command: promtool check config /etc/prometheus/prometheus.yml
+  register: promfilestatus
+  failed_when: "'FAILED' in promfilestatus.stderr"
+
+- name: Restart prometheus service
+  ansible.builtin.systemd:
+    state: restarted
+    name: prometheus
