@@ -1,4 +1,9 @@
 ---
+- name: Install needed packages
+  ansible.builtin.apt:
+    name: python3-bcrypt
+    state: present
+  
 - name: Create Prometheus group
   ansible.builtin.group:
     name: prometheus
@@ -69,6 +74,7 @@
     src: /tmp/prometheus-2.37.0.linux-amd64.tar.gz
     dest: /tmp/prometheus/prometheus-2.37.0.linux-amd64.tar.gz
     mode: '0755'
+  when: local_download
     
 - name: Untar prometheus tarball
   ansible.builtin.unarchive:

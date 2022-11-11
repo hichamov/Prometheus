@@ -1,2 +1,8 @@
+# Where will prometheus store its data 
 prometheus_data_dir: "/var/lib/prometheus"
-local_download: True
+
+# Is your prometheus ad grafana machines have access to the internet ? if yes set the following variable to False
+local_download: False
+
+# For how lowg will prometheus keep data (in days)
+prometheus_metrics_retention: 10

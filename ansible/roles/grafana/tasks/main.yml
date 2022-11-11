@@ -33,3 +33,24 @@
     state: started
     enabled: yes
     name: grafana-server
+
+      #- name: Retrieve Grafana url
+      #  ansible.builtin.debug:
+      #   var: hostvars[inventory_hostname]['groups']['grafana'][0]
+      #  register: grafanaip
+      #
+      #- name: show grafanaip value
+      #  debug: 
+      #    msg: "{{ grafanaip.stdout }}"
+      #
+      #- name: Update admin password
+      #  community.grafana.grafana_user:
+      #    url: "http://{{ grafanaip }}:3000"
+      #    url_username: admin
+      #    url_password: admin
+      #    name: "Bruce Wayne"
+      #    email: batman@gotham.city
+      #    login: batman
+      #    password: robin
+      #    is_admin: true
+      #    state: present
